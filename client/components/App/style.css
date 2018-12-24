@@ -1,0 +1,40 @@
+.app {
+    width: 95vw;
+    min-width: 500px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: antiquewhite url("/images/as.jpg") ;
+    border-top-width: 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 50px;
+    font-weight: 80;  
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+
+      background-color:rgba(77, 99, 132, 1);
+}
+.content {
+    display: flex;
+    min-height: 500px;
+}
+
+.leftPanel{
+    width: 220px;
+    border-right: 2px solid #f6f6f6;
+}
+
+.header {
+
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.connectBtn {
+    background: rebeccapurple;
+}

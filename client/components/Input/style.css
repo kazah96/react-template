@@ -1,0 +1,28 @@
+.input {
+    border-radius: 5px;
+    padding: 5px;
+    background: rgba(224, 240, 255, 0.72);
+    color:rgb(41, 59, 86);;
+    border: 1px solid rgba(161, 159, 159, 0.562); 
+    transition-property: background-color;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+    box-shadow: -50x -50x firebrick;
+    overflow:visible;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input:hover
+{
+    background-color: rgba(151, 206, 255, 0.6);
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(44,62,80,0.6);
+   
+}
+
+input:focus
+{
+    background: rgba(151, 206, 255, 0.6);
+    border: 1px rgb(0, 0, 0) solid; 
+    transition: border-color ease-in-out .25s,box-shadow ease-in-out .25s;
+}

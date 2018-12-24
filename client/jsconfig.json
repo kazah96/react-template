@@ -1,0 +1,21 @@
+{
+  "exclude": ["../node_modules"],
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": ".",
+
+    "paths": {
+      "*": ["../node_modules/*"],
+      "components/*": ["./components/*"],
+      "actions/*": ["./actions/*"],
+      "reducers/*": ["./reducers/*"],
+      "images/*": ["./images/*"],
+      "store/*": ["./store"],
+      "consts/*": ["./consts"],
+      "config/*": ["./config"],
+      "game/*": ["./game"],
+      "utils/*": ["./utils"]
+    }
+  }
+}
