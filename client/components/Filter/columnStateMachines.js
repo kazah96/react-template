@@ -3,6 +3,31 @@ const DESC = "DESC";
 
 const columnStateMachines = {
   bool: {
+    getQuery: ({ name, bool }) => `${name}=${JSON.stringify(!!bool)}`,
+    multiFilterByDefault: true,
+    initial: {
+      isActive: false,
+      bool: false,
+    },
+    transitions: [
+      {
+        name: "on",
+        from: { isActive: false, bool: false },
+        to: { isActive: true, bool: true },
+      },
+      {
+        name: "off",
+        from: { isActive: true, bool: true },
+        to: { isActive: true, bool: false },
+      },
+      {
+        name: "inactive",
+        from: { isActive: true, bool: false },
+        to: { isActive: false, bool: false },
+      },
+    ],
+  },
+  boolExact: {
     getQuery: ({ name, isActive }) => `${name}=${JSON.stringify(!!isActive)}`,
     multiFilterByDefault: true,
     initial: {

@@ -10,19 +10,21 @@ import {
   getAllFilterTypes,
 } from "./columnStateMachines";
 
+const propTypes = {
+  columnRenderer: func.isRequired, // render-props pattern
+  onFilterChanged: func.isRequired,
+  multifilter: bool,
+  columnDefinitions: arrayOf(
+    shape({
+      name: string,
+      label: string,
+      type: oneOf[getAllFilterTypes()],
+    }),
+  ).isRequired,
+};
+
 class Filter extends React.Component {
-  static propTypes = {
-    columnRender: func.isRequired,
-    onFilterChanged: func.isRequired,
-    multifilter: bool,
-    columnDefinitions: arrayOf(
-      shape({
-        name: string,
-        label: string,
-        type: oneOf[getAllFilterTypes()],
-      }),
-    ).isRequired,
-  };
+  static propTypes = propTypes;
 
   static defaultProps = { multifilter: false };
 
@@ -83,16 +85,16 @@ class Filter extends React.Component {
 
   getColumn = item => {
     const { columns } = this.state;
-    const { columnRender } = this.props;
-    const { name, label, type } = item;
+    const { columnRenderer } = this.props;
+    const { name, type } = item;
     const onClick = this.onColumnClick;
 
-    return columnRender({
+    return columnRenderer({
       ...columns[name],
       type,
       name,
-      label,
       onClick,
+      ...item,
     });
   };
 
@@ -103,4 +105,5 @@ class Filter extends React.Component {
   }
 }
 
+export { propTypes };
 export default Filter;

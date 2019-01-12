@@ -4,16 +4,18 @@ import { arrayOf, shape, string, oneOfType, func, number } from "prop-types";
 const DIRECTION_UP = 1;
 const DIRECTION_DOWN = 2;
 
+const propTypes = {
+  onSelectedItemChanged: func.isRequired,
+  itemRenderer: func.isRequired,
+  items: arrayOf(
+    shape({
+      id: oneOfType([string, number]),
+    }),
+  ).isRequired,
+};
+
 class List extends React.Component {
-  static propTypes = {
-    onSelectedIdChanged: func.isRequired,
-    itemRenderer: func.isRequired,
-    items: arrayOf(
-      shape({
-        id: oneOfType([string, number]),
-      }),
-    ).isRequired,
-  };
+  static propTypes = propTypes;
 
   static defaultProps = {};
 
@@ -26,14 +28,20 @@ class List extends React.Component {
   }
 
   componentDidMount() {
+    const { items } = this.props;
+
     this.registerKeyboardInput();
+
+    if (items.length !== 0) {
+      this.changeSelection(0);
+    }
   }
 
   componentDidUpdate(prevProps) {
     const { items } = this.props;
 
     if (prevProps.items !== items) {
-      this.setState({ selectedItemId: 0 });
+      this.changeSelection(0);
     }
   }
 
@@ -42,7 +50,15 @@ class List extends React.Component {
   }
 
   onUserItemClick = key => {
-    this.setState({ selectedItemId: key });
+    this.changeSelection(key);
+  };
+
+  changeSelection = key => {
+    const { onSelectedItemChanged, items } = this.props;
+
+    this.setState({ selectedItemId: key }, () =>
+      onSelectedItemChanged(items[key]),
+    );
   };
 
   handleKeyboardInput = event => {
@@ -67,12 +83,12 @@ class List extends React.Component {
 
     // вверх
     if (direction === DIRECTION_UP && selectedItemId > 0) {
-      this.setState({ selectedItemId: selectedItemId - 1 });
+      this.changeSelection(selectedItemId - 1);
     } else if (
       direction === DIRECTION_DOWN &&
       selectedItemId < items.length - 1
     ) {
-      this.setState({ selectedItemId: selectedItemId + 1 });
+      this.changeSelection(selectedItemId + 1);
     }
   };
 
@@ -98,4 +114,5 @@ class List extends React.Component {
   }
 }
 
+export { propTypes };
 export default List;

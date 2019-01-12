@@ -1,69 +1,78 @@
-import { arrayOf, func, shape, string } from "prop-types";
 import React from "react";
+import { debounce } from "lodash";
+import { func } from "prop-types";
 import styled from "styled-components";
 
+import Filter, { propTypes as filterPropTypes } from "components/Filter/Filter";
+import List, {
+  propTypes as listPropTypes,
+} from "components/SelectableList/List";
+
+import Column from "./Column";
+import Item from "./Item";
+
 const Table = styled.table`
-  background: darkslateblue;
 `;
 
 const Row = styled.tr`
-  border: 2px;
 
-  .fee {
-    background: red;
-  }
 `;
 
-class FiltrableList extends React.PureComponent {
+const FILTER_DEBOUNCE_INTERVAL = 1000;
+const SELECT_DEBOUNCE_INTERVAL = 1000;
+
+class FiltrableList extends React.Component {
   static propTypes = {
-    onFilterUpdated: func.isRequired,
-    filterRender: func.isRequired,
-    columnDefinitions: arrayOf(
-      shape({
-        name: string,
-        label: string,
-      }),
-    ).isRequired,
-    itemRender: func.isRequired,
-    items: arrayOf(
-      shape({
-        id: string,
-        name: string,
-      }),
-    ).isRequired,
+    onFilterChanged: func.isRequired,
+    onSelectedItemChanged: func.isRequired,
+    columnRenderer: func.isRequired,
+    itemRenderer: func.isRequired,
+    columnDefinitions: filterPropTypes.columnDefinitions, // eslint-disable-line
+    items: listPropTypes.items, // eslint-disable-line
   };
 
   static defaultProps = {};
 
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.onFilterChanged = debounce(
+      props.onFilterChanged,
+      FILTER_DEBOUNCE_INTERVAL,
+    );
+    this.onSelectedItemChanged = debounce(
+      props.onSelectedItemChanged,
+      SELECT_DEBOUNCE_INTERVAL,
+    );
   }
 
-  updateFilter = ({ name, type, dir }) => {
-    const { onFilterUpdated } = this.props;
-
-    const query = `${name}`;
-
-    onFilterUpdated(query);
-  };
-
-  onSort = ({ name, type, dir }) => {
-    return name;
-  };
-
   render() {
-    const { filterRender, itemRender, items, columnDefinitions } = this.props;
+    const {
+      columnRenderer,
+      itemRenderer,
+      columnDefinitions,
+      items,
+    } = this.props;
 
     return (
       <Table>
         <thead>
-          <Row>{filterRender({ columnDefinitions, onSort: this.onSort })}</Row>
+          <Row>
+            <Filter
+              onFilterChanged={this.onFilterChanged}
+              columnRenderer={props =>
+                Column({ render: columnRenderer, ...props })
+              }
+              columnDefinitions={columnDefinitions}
+            />
+          </Row>
         </thead>
         <tbody>
-          {items.map(item => (
-            <Row>{itemRender()}</Row>
-          ))}
+          <List
+            onSelectedItemChanged={this.onSelectedItemChanged}
+            itemRenderer={props => Item({ render: itemRenderer, ...props })}
+            items={items}
+          />
         </tbody>
       </Table>
     );
