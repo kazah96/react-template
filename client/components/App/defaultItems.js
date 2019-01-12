@@ -1,8 +1,7 @@
 export const testItems = [
   { name: "naqwda", type: "asc", label: "sfsdfsd", width: "400px"},
   { name: "naga", type: "asc", label: "sfsdfsd" },
-  { name: "naah", type: "asc", label: "sfsdfsd", width: "5em" },
-  { name: "Not", type: "boolExact", label: "Not Asc" },
+  { name: "naah", type: "asc", label: "sfsdfsd", },
   { name: "ddq", type: "bool", label: "Notы" },
   { name: "DAAAMN", type: "bool", label: "Not Asc" },
 ];

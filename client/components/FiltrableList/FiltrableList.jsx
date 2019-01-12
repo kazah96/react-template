@@ -12,11 +12,12 @@ import Column from "./Column";
 import Item from "./Item";
 
 const Table = styled.table`
+  width: 1090px;
+  border-spacing: 0px 10px;
+  border-collapse: separate;
 `;
 
-const Row = styled.tr`
-
-`;
+const Row = styled.tr``;
 
 const FILTER_DEBOUNCE_INTERVAL = 1000;
 const SELECT_DEBOUNCE_INTERVAL = 1000;

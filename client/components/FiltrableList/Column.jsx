@@ -4,6 +4,9 @@ import styled from "styled-components";
 
 const ColumnContainer = styled.td`
   width: ${props => props.columnWidth};
+  &:first-child {
+    padding-left: 28px;
+  }
 `;
 
 const ColumnContent = styled.div`

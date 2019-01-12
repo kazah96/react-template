@@ -10,7 +10,7 @@ import { testItems, defaultItems } from "./defaultItems";
 
 const GlobalStyle = createGlobalStyle`
   body{
-    background: #21667c;
+    background: lightgray;
     font: 1em Fira Code;
   }
 `;
@@ -34,11 +34,7 @@ const Item = ({ name, value, ba }) => (
   <>
     <td>{name}</td>
     <td>{value}</td>
-    <td>{ba}</td>
-    <td>
-      <button>Open dispute</button>
-    </td>
-  
+    <td>{ba}</td> 
     <td>ddqwd</td>
     <td>ASDDDDDDDDdddddd</td>
   </>

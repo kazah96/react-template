@@ -3,14 +3,12 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Tr = styled.tr`
-  width: 500px;
   border: 1px solid black;
   font-size: 1.2em;
   font-weight: 400;
-  background-color: #ffffff;
   color: #919191;
   box-shadow: 0px 0px 20px 0px rgba(94, 84, 207, 0.07);
-  
+
   margin-bottom: 5px;
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
@@ -21,9 +19,13 @@ const Tr = styled.tr`
   cursor: pointer;
   border-radius: 5px;
 
-
   td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+
     &:first-child {
+      padding-left: 20px;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
       border-left: 10px solid black;
