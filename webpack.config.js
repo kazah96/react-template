@@ -1,11 +1,12 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
   entry: "./client/index.js",
   output: {
     path: path.resolve(__dirname, "client/public"),
-    filename: "bundlick.js",
+    filename: "bundlick.js"
   },
   resolve: {
     extensions: [".css", ".wasm", ".mjs", ".js", ".json", ".jsx"],
@@ -18,8 +19,8 @@ module.exports = {
       consts: path.resolve(__dirname, "client/consts"),
       game: path.resolve(__dirname, "client/game"),
       utils: path.resolve(__dirname, "client/utils"),
-      config: path.resolve(__dirname, "client/config"),
-    },
+      config: path.resolve(__dirname, "client/config")
+    }
   },
   module: {
     rules: [
@@ -31,15 +32,15 @@ module.exports = {
           plugins: [
             "@babel/plugin-transform-react-jsx",
             "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-transform-regenerator",
+            "@babel/plugin-transform-regenerator"
           ],
-          presets: ["@babel/preset-env", "@babel/preset-react"],
-        },
+          presets: ["@babel/preset-env", "@babel/preset-react"]
+        }
       },
       {
         test: /\.css/,
         loader:
-          "style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]",
+          "style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
       },
       {
         test: /\.(jpg|png)/,
@@ -47,9 +48,10 @@ module.exports = {
         options: {
           limit: 100000,
           name: "[name].[hash:8].[ext]",
-          outputPath: "eeed/",
-        },
-      },
-    ],
+          outputPath: "eeed/"
+        }
+      }
+    ]
   },
+  plugins: [new webpack.DefinePlugin({ bayce: "12312" })]
 };
